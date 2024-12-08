@@ -1,23 +1,27 @@
-import { createContext, ReactNode, useState } from "react";
-import { Toast } from "../types/toast";
+import React, { createContext, ReactNode, useState } from "react";
+import ToastContainer from "../components/toast/ToastContainer";
+import { ToastContextType, ToastType } from "../types/toast";
 
-interface ToastContextProps {
-  toasts: Toast[];
-  addToast: (message: string, type?: Toast["type"]) => void;
-  removeToast: (id: string) => void;
-}
+export const ToastContext = createContext<ToastContextType | undefined>(
+  undefined
+);
 
-const ToastContext = createContext<ToastContextProps | undefined>(undefined);
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [toasts, setToasts] = useState<ToastType[]>([]);
 
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
-  const [toasts, setToasts] = useState<Toast[]>([]);
-
-  const addToast = (message: string, type: Toast["type"] = "info") => {
-    const id = Date.now().toString(); // 유니크 ID 생성
+  const addToast = (
+    message: string,
+    type: "success" | "error" | "info",
+    duration = 3000
+  ) => {
+    const id = Date.now().toString();
     setToasts((prev) => [...prev, { id, message, type }]);
 
-    // 3초 후 자동 제거
-    setTimeout(() => removeToast(id), 3000);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((toast) => toast.id !== id));
+    }, duration);
   };
 
   const removeToast = (id: string) => {
@@ -25,10 +29,9 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
+    <ToastContext.Provider value={{ addToast }}>
       {children}
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </ToastContext.Provider>
   );
 };
-
-export default ToastContext;
