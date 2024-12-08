@@ -4,12 +4,14 @@ import Form from "../components/common/Input/Form";
 import Input from "../components/common/Input/Input";
 import Title from "../components/common/Text/Title";
 import useInput from "../hooks/useInput";
+import { useToast } from "../hooks/useToast";
 import { useSignup } from "../hooks/useUser";
 import FormLayout from "../layouts/FormLayout";
 
 const SignupPage = () => {
   const navigate = useNavigate();
   const { mutate: signup } = useSignup();
+  const { addToast } = useToast(); // Toast 훅 가져오기
 
   const id = useInput("");
   const password = useInput("");
@@ -20,23 +22,26 @@ const SignupPage = () => {
     e.preventDefault();
 
     if (password.value !== passwordCheck.value) {
-      return alert("패스워드가 일치하지 않습니다.");
+      addToast("패스워드가 일치하지 않습니다.", "error"); // 실패 Toast
+      return;
     }
+
     const userData = {
       id: id.value as string,
       password: password.value as string,
       nickname: nickname.value as string,
     };
+
     signup(
       { ...userData },
       {
         onSuccess: (data) => {
-          alert("회원가입 성공!");
+          addToast("회원가입 성공!", "success"); // 성공 Toast
           navigate("/login");
           console.log("Response : ", data);
         },
         onError: (error) => {
-          alert("회원가입 실패");
+          addToast("회원가입 실패", "error"); // 실패 Toast
           console.error("Error:", error);
         },
       }

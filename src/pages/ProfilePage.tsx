@@ -1,6 +1,7 @@
 import { useState } from "react";
 import UpdateInput from "../components/common/Input/UpdateInput";
 import AvatarUploader from "../components/loader/AvatarUploader";
+import { useToast } from "../hooks/useToast"; // Toast 훅 가져오기
 import { useUpdateProfile } from "../hooks/useUser";
 import { useUserStore } from "../stores/userStore";
 import { getCookie } from "../utils/cookie";
@@ -13,20 +14,22 @@ const ProfilePage = () => {
   );
 
   const [isUploading, setIsUploading] = useState(false);
+  const { addToast } = useToast(); // Toast 추가 함수 가져오기
 
   if (!user) {
     return <p>로그인이 필요합니다.</p>;
   }
+
   const handleNicknameUpdate = (newNickname: string) => {
     updateProfile(
       { nickname: newNickname },
       {
         onSuccess: (updatedData) => {
           setUser({ ...user, nickname: updatedData.nickname }); // Zustand 상태 업데이트
-          alert("닉네임이 변경되었습니다!");
+          addToast("닉네임이 변경되었습니다!", "success"); // 성공 Toast
         },
         onError: () => {
-          alert("닉네임 변경에 실패했습니다.");
+          addToast("닉네임 변경에 실패했습니다.", "error"); // 실패 Toast
         },
       }
     );
@@ -46,10 +49,10 @@ const ProfilePage = () => {
     updateProfile(formData, {
       onSuccess: (updatedData) => {
         setUser({ ...user, avatar: updatedData.avatar }); // Zustand 상태 업데이트
-        alert("프로필 이미지가 변경되었습니다!");
+        addToast("프로필 이미지가 변경되었습니다!", "success"); // 성공 Toast
       },
       onError: () => {
-        alert("프로필 이미지 변경에 실패했습니다.");
+        addToast("프로필 이미지 변경에 실패했습니다.", "error"); // 실패 Toast
       },
       onSettled: () => {
         setIsUploading(false);

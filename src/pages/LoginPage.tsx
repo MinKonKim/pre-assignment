@@ -5,6 +5,7 @@ import Form from "../components/common/Input/Form";
 import Input from "../components/common/Input/Input";
 import Title from "../components/common/Text/Title";
 import useInput from "../hooks/useInput";
+import { useToast } from "../hooks/useToast";
 import { useLogin } from "../hooks/useUser";
 import FormLayout from "../layouts/FormLayout";
 import { useUserStore } from "../stores/userStore";
@@ -14,7 +15,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const id = useInput("");
   const password = useInput("");
-
+  const { addToast } = useToast();
   const { setUser } = useUserStore();
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +28,7 @@ const LoginPage = () => {
           console.log("Response:", data);
         },
         onError: (error) => {
-          alert("로그인 실패");
+          addToast(error.message, "error");
           console.error("Error:", error);
         },
       }
