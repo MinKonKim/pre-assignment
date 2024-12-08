@@ -1,7 +1,7 @@
 import { useState } from "react";
 import UpdateInput from "../components/common/Input/UpdateInput";
 import AvatarUploader from "../components/loader/AvatarUploader";
-import { useToast } from "../hooks/useToast"; // Toast 훅 가져오기
+import { useToast } from "../hooks/useToast";
 import { useUpdateProfile } from "../hooks/useUser";
 import { useUserStore } from "../stores/userStore";
 import { getCookie } from "../utils/cookie";

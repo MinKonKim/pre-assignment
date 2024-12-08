@@ -7,9 +7,11 @@ const API_URL = import.meta.env.VITE_API_URL;
 const ErrorHandler = (error: any) => {
   if (axios.isAxiosError(error)) {
     const message = error.response?.data?.message;
+    console.log("Axios에러 : ", message);
     return { message, success: false };
   } else {
-    throw new Error(error + "에러가 발생하였습니다.");
+    console.error("비-Axios 에러:", error);
+    return { message: "에러가 발생했습니다.", success: false };
   }
 };
 
@@ -29,7 +31,7 @@ export const registerUser = async (data: {
     const response = await apiClient.post("/register", data);
     return response.data;
   } catch (error) {
-    ErrorHandler(error);
+    return ErrorHandler(error);
   }
 };
 
@@ -51,7 +53,7 @@ export const loginUser = async (
     }
     return response.data;
   } catch (error) {
-    ErrorHandler(error);
+    return ErrorHandler(error);
   }
 };
 
@@ -64,7 +66,7 @@ export const getUserInfo = async (accessToken: string) => {
     });
     return response.data;
   } catch (error) {
-    ErrorHandler(error);
+    return ErrorHandler(error);
   }
 };
 
@@ -86,7 +88,7 @@ export const updateProfile = async (
     });
     return response.data;
   } catch (error) {
-    ErrorHandler(error);
+    return ErrorHandler(error);
   }
 };
 

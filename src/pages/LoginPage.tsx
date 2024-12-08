@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/common/Button/BaseButton";
 import Form from "../components/common/Input/Form";
@@ -6,33 +6,35 @@ import Input from "../components/common/Input/Input";
 import Title from "../components/common/Text/Title";
 import useInput from "../hooks/useInput";
 import { useToast } from "../hooks/useToast";
-import { useLogin } from "../hooks/useUser";
 import FormLayout from "../layouts/FormLayout";
+import { loginUser } from "../services/api";
 import { useUserStore } from "../stores/userStore";
 
 const LoginPage = () => {
-  const { mutate: login, isPending } = useLogin();
   const navigate = useNavigate();
   const id = useInput("");
   const password = useInput("");
   const { addToast } = useToast();
   const { setUser } = useUserStore();
-  const handleLogin = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    login(
-      { data: { id: id.value, password: password.value }, expiresIn: 10 },
-      {
-        onSuccess: (data) => {
-          setUser(data);
-          navigate("/");
-          console.log("Response:", data);
-        },
-        onError: (error) => {
-          addToast(error.message, "error");
-          console.error("Error:", error);
-        },
-      }
-    );
+
+    const response = await loginUser(
+      { id: id.value, password: password.value },
+      30
+    ); // 30분 유효기간 설정
+    console.log(response);
+    if (response.success) {
+      setUser(response);
+      addToast("로그인 성공!", "success");
+      navigate(0);
+    } else {
+      addToast(response.message, "error");
+    }
+
+    setIsLoading(false); // 로딩 상태 종료
   };
 
   return (
@@ -41,7 +43,7 @@ const LoginPage = () => {
         <Title>로그인</Title>
         <Input {...id} placeholder="아이디" />
         <Input {...password} type="password" placeholder="비밀번호" />
-        <Button type="submit">{isPending ? "로그인중..." : "로그인"}</Button>
+        <Button type="submit">{isLoading ? "로그인중..." : "로그인"}</Button>
       </Form>
     </FormLayout>
   );

@@ -1,9 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Button from "../common/Button/BaseButton";
 
 const Header = () => {
   const { isAuthenticated, handleLogout } = useAuth();
+  const navigate = useNavigate();
+  const logout = () => {
+    handleLogout();
+    navigate(0);
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
@@ -28,7 +33,7 @@ const Header = () => {
                 />
               </Link>
               <Button
-                onClick={handleLogout}
+                onClick={logout}
                 className="bg-red-500 text-white rounded hover:bg-red-600 transition"
               >
                 로그아웃

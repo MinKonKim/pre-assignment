@@ -8,7 +8,6 @@ interface DecodedToken {
 
 const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   useEffect(() => {
     const token = getCookie("accessToken");
 

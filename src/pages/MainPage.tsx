@@ -13,7 +13,7 @@ const MainPage = () => {
       </p>
 
       <button
-        onClick={() => addToast("토스트", "success")}
+        onClick={() => addToast("안녕하세요", "info")}
         className="bg-white text-blue-500 font-medium px-6 py-3 rounded-lg hover:bg-gray-100 transition"
       >
         시작하기
