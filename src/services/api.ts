@@ -1,7 +1,17 @@
 import axios from "axios";
 import { removeCookie, setCookie } from "../utils/cookie";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ErrorHandler = (error: any) => {
+  if (axios.isAxiosError(error)) {
+    const message = error.response?.data?.message;
+    return { message, success: false };
+  } else {
+    throw new Error(error + "에러가 발생하였습니다.");
+  }
+};
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -19,7 +29,7 @@ export const registerUser = async (data: {
     const response = await apiClient.post("/register", data);
     return response.data;
   } catch (error) {
-    return { message: error, success: false };
+    ErrorHandler(error);
   }
 };
 
@@ -28,10 +38,10 @@ export const loginUser = async (
   expiresIn?: number
 ) => {
   try {
-    const url = expiresIn ? `/login?expiresIn=${expiresIn}` : "/login";
+    const url = expiresIn ? `/login?expiresIn=${expiresIn}m` : "/login";
+
     const response = await apiClient.post(url, data);
     const accessToken = response.data.accessToken;
-
     if (accessToken) {
       setCookie("accessToken", accessToken, {
         path: "/",
@@ -41,7 +51,7 @@ export const loginUser = async (
     }
     return response.data;
   } catch (error) {
-    return { message: error, success: false };
+    ErrorHandler(error);
   }
 };
 
@@ -54,7 +64,7 @@ export const getUserInfo = async (accessToken: string) => {
     });
     return response.data;
   } catch (error) {
-    return { message: error, success: false };
+    ErrorHandler(error);
   }
 };
 
@@ -76,7 +86,7 @@ export const updateProfile = async (
     });
     return response.data;
   } catch (error) {
-    return { message: error, success: false };
+    ErrorHandler(error);
   }
 };
 

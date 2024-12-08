@@ -1,58 +1,41 @@
-import {
-  useMutation,
-  UseMutationResult,
-  useQuery,
-} from "@tanstack/react-query";
-import {
-  registerUser,
-  loginUser,
-  getUserInfo,
-  updateProfile,
-} from "../services/api";
-import {
-  RegisterRequest,
-  LoginRequest,
-  UpdateProfileRequest,
-  LoginResponse,
-} from "../types/api";
+import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
+import { getCookie, removeCookie } from "../utils/cookie";
 
-// 회원가입 훅
-export const useSignup = () => {
-  return useMutation({
-    mutationFn: (data: RegisterRequest) => registerUser(data),
-  });
+interface DecodedToken {
+  exp: number; // 만료 시간
+}
+
+const useAuth = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = getCookie("accessToken");
+
+    if (token) {
+      try {
+        const decoded = jwtDecode<DecodedToken>(token);
+        const currentTime = Date.now() / 1000;
+
+        if (decoded.exp > currentTime) {
+          setIsAuthenticated(true);
+        } else {
+          // 토큰 만료 시 로그아웃 처리
+          handleLogout();
+        }
+      } catch (error) {
+        console.error("토큰 디코딩 실패:", error);
+        handleLogout();
+      }
+    }
+  }, []);
+
+  const handleLogout = () => {
+    removeCookie("accessToken");
+    setIsAuthenticated(false);
+  };
+
+  return { isAuthenticated, handleLogout };
 };
 
-// 로그인 훅
-export const useLogin = (): UseMutationResult<
-  LoginResponse,
-  Error,
-  { data: LoginRequest; expiresIn?: number }
-> => {
-  return useMutation({
-    mutationFn: ({
-      data,
-      expiresIn,
-    }: {
-      data: LoginRequest;
-      expiresIn?: number;
-    }) => loginUser(data, expiresIn),
-  });
-};
-
-// 회원정보 조회 훅
-export const useUserInfo = (accessToken: string) => {
-  return useQuery({
-    queryKey: ["user", accessToken],
-    queryFn: () => getUserInfo(accessToken),
-    enabled: !!accessToken, // accessToken이 존재할 때만 실행
-  });
-};
-
-// 프로필 변경 훅
-export const useUpdateProfile = (accessToken: string) => {
-  return useMutation({
-    mutationFn: (data: UpdateProfileRequest) =>
-      updateProfile(data, accessToken),
-  });
-};
+export default useAuth;

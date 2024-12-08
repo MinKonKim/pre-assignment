@@ -1,25 +1,30 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/common/Button/BaseButton";
+import Form from "../components/common/Input/Form";
+import Input from "../components/common/Input/Input";
+import Title from "../components/common/Text/Title";
 import useInput from "../hooks/useInput";
-import Input from "../components/common/Input";
-import { useLogin } from "../hooks/useAuth";
+import { useLogin } from "../hooks/useUser";
 import FormLayout from "../layouts/FormLayout";
-import Form from "../components/common/Form";
+import { useUserStore } from "../stores/userStore";
 
 const LoginPage = () => {
   const { mutate: login, isPending } = useLogin();
-
+  const navigate = useNavigate();
   const id = useInput("");
   const password = useInput("");
 
+  const { setUser } = useUserStore();
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     login(
-      { data: { id: "testuser", password: "password123" }, expiresIn: 10 },
+      { data: { id: id.value, password: password.value }, expiresIn: 10 },
       {
         onSuccess: (data) => {
-          alert("로그인 성공!");
+          setUser(data);
+          navigate("/");
           console.log("Response:", data);
-          // 토큰 저장 등 추가 작업
         },
         onError: (error) => {
           alert("로그인 실패");
@@ -28,12 +33,14 @@ const LoginPage = () => {
       }
     );
   };
+
   return (
     <FormLayout>
       <Form onSubmit={handleLogin}>
-        <Input {...id} />
-        <Input {...password} type="password" />
-        <button>{isPending ? "로그인중..." : "로그인"}</button>
+        <Title>로그인</Title>
+        <Input {...id} placeholder="아이디" />
+        <Input {...password} type="password" placeholder="비밀번호" />
+        <Button type="submit">{isPending ? "로그인중..." : "로그인"}</Button>
       </Form>
     </FormLayout>
   );
