@@ -1,11 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html", // HTML 파일 경로
-    "./src/**/*.{js,ts,jsx,tsx}", // 모든 JS, TS, React 컴포넌트 파일
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {}, // 커스터마이징 옵션
+    extend: {
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        fadeOut: {
+          "0%": { opacity: "1", transform: "translateY(0)" },
+          "100%": { opacity: "0", transform: "translateY(10px)" },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 0.5s ease-out",
+        fadeOut: "fadeOut 0.5s ease-in",
+      },
+    },
   },
-  plugins: [], // 필요 시 Tailwind 플러그인 추가
+  plugins: [],
 };
