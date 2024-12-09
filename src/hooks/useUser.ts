@@ -9,7 +9,7 @@ import {
   LoginRequest,
   RegisterRequest,
   UpdateProfileRequest,
-} from "../types/api";
+} from "../types/user";
 
 // 회원가입 훅
 export const useSignup = () => {

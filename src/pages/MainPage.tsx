@@ -13,7 +13,9 @@ const MainPage = () => {
         저희 웹사이트에 오신 것을 환영합니다. 다양한 기능과 서비스를 즐겨보세요!
       </p>
 
-      <Button onClick={() => addToast("안녕하세요", "info")}>시작하기</Button>
+      <Button className="w-20" onClick={() => addToast("안녕하세요", "info")}>
+        시작하기
+      </Button>
     </div>
   );
 };
