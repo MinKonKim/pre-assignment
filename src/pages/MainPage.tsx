@@ -1,3 +1,4 @@
+import Button from "../components/common/Button/BaseButton";
 import { useToast } from "../hooks/useToast";
 
 const MainPage = () => {
@@ -12,12 +13,7 @@ const MainPage = () => {
         저희 웹사이트에 오신 것을 환영합니다. 다양한 기능과 서비스를 즐겨보세요!
       </p>
 
-      <button
-        onClick={() => addToast("안녕하세요", "info")}
-        className="bg-white text-blue-500 font-medium px-6 py-3 rounded-lg hover:bg-gray-100 transition"
-      >
-        시작하기
-      </button>
+      <Button onClick={() => addToast("안녕하세요", "info")}>시작하기</Button>
     </div>
   );
 };

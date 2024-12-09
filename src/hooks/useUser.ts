@@ -4,7 +4,7 @@ import {
   loginUser,
   registerUser,
   updateProfile,
-} from "../services/api";
+} from "../apis/user";
 import {
   LoginRequest,
   RegisterRequest,

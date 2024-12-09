@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../apis/user";
 import Button from "../components/common/Button/BaseButton";
 import Form from "../components/common/Input/Form";
 import Input from "../components/common/Input/Input";
@@ -7,7 +8,6 @@ import Title from "../components/common/Text/Title";
 import useInput from "../hooks/useInput";
 import { useToast } from "../hooks/useToast";
 import FormLayout from "../layouts/FormLayout";
-import { loginUser } from "../services/api";
 import { useUserStore } from "../stores/userStore";
 
 const LoginPage = () => {
@@ -24,8 +24,7 @@ const LoginPage = () => {
     const response = await loginUser(
       { id: id.value, password: password.value },
       30
-    ); // 30분 유효기간 설정
-    console.log(response);
+    );
     if (response.success) {
       setUser(response);
       addToast("로그인 성공!", "success");
@@ -34,7 +33,7 @@ const LoginPage = () => {
       addToast(response.message, "error");
     }
 
-    setIsLoading(false); // 로딩 상태 종료
+    setIsLoading(false);
   };
 
   return (
