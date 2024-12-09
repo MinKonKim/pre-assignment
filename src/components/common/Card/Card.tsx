@@ -17,9 +17,17 @@ const Card: React.FC<CardProps> = ({
   onClick,
   className = "",
 }) => {
+  const handleCardClick = () => {
+    if (description) {
+      window.open(description, "_blank");
+    } else if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <div
-      onClick={onClick}
+      onClick={handleCardClick}
       className={`bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer ${className}`}
     >
       {imageUrl && (
