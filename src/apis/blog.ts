@@ -33,7 +33,7 @@ export const addBlogPost = async (
   } catch (error) {
     console.error("블로그 포스트 추가 중 오류 발생:", error);
     return {
-      message: "블로그 포스트 추가에 실패했습니다.",
+      message: "현재 포스트 등록은 불가합니다.",
       success: false,
     };
   }
@@ -81,10 +81,10 @@ export const getBlogPosts = async (): Promise<ApiResponse<BlogPostType[]>> => {
       data: blogPosts,
     };
   } catch (error) {
-    console.error("블로그 포스트 가져오기 중 오류 발생:", error);
+    console.error("포스트 가져오는 중 에러 발생.", error);
     return {
       success: false,
-      message: "블로그 포스트를 가져오는 데 실패했습니다.",
+      message: "블로그 포스트를 가져오는데 실패했습니다.",
     };
   }
 };
