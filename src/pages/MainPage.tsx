@@ -14,10 +14,6 @@ const MainPage = () => {
         저희 웹사이트에 오신 것을 환영합니다. 아래는 모두
       </p>
       <div className="flex items-center">
-        <img
-          src="https://www.venturesquare.net/wp-content/uploads/2020/06/notion.png"
-          className="w-10 h-10 mr-2"
-        />
         <p className="text-lg md:text-2xl text-gray-200 text-center max-w-xl">
           Notion 페이지와 연결되어 있습니다.
         </p>
