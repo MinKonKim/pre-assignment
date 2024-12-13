@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Button from "../common/Button/BaseButton";
+import { useUserStore } from "../../stores/userStore";
 
 const Header = () => {
   const { isAuthenticated, handleLogout } = useAuth();
+  const { user } = useUserStore();
   const navigate = useNavigate();
   const logout = () => {
     handleLogout();
@@ -26,11 +28,13 @@ const Header = () => {
                 to="/profile"
                 className="text-gray-700 hover:text-blue-500 transition"
               >
-                <img
-                  src="src\assets\user.png"
-                  alt="User Profile"
-                  className="w-12 h-8"
-                />
+                {user && (
+                  <img
+                    src={user.avatar || undefined}
+                    alt="User Profile"
+                    className="w-12 h-8"
+                  />
+                )}
               </Link>
               <Button
                 onClick={logout}
