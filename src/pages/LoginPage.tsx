@@ -28,6 +28,7 @@ const LoginPage = () => {
     if (response.success) {
       setUser(response);
       addToast("로그인 성공!", "success");
+      navigate("/");
       navigate(0);
     } else {
       addToast(response.message, "error");
