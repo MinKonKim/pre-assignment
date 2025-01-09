@@ -1,28 +1,29 @@
-import { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
 interface PrivateRouteProps {
-  children: ReactNode;
   isAuthenticated: boolean;
-  requiredRole: string;
-  userRole: string;
+  requiredRole?: string;
+  userRole?: string;
 }
 
-const PrivateRoute = ({
-  children,
+const PrivateRoute: React.FC<PrivateRouteProps> = ({
   isAuthenticated,
   requiredRole,
   userRole,
-}: PrivateRouteProps) => {
+}) => {
+  // 인증 여부 확인
   if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
-  if (userRole !== requiredRole) {
-    return <Navigate to="/unauthorized" />;
+  // 권한 확인
+  if (requiredRole && userRole !== requiredRole) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
-  return <>{children}</>;
+  // 조건 만족 시 렌더링
+  return <Outlet />;
 };
 
 export default PrivateRoute;
