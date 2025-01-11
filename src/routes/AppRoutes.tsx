@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { LandingPage, LoginPage, MainPage, RegisterPage } from "../pages";
 import PrivateRoute from "./PrivateRoute";
-import { LandingPage, LoginPage, MainPage } from "../pages";
 
 const isAuthenticated = true; // 실제 인증 로직으로 대체
 const userRole = "admin"; // 실제 사용자 역할 로직으로 대체
@@ -11,6 +11,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/landing" element={<LandingPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route
           element={
             <PrivateRoute
@@ -21,7 +22,6 @@ const AppRoutes = () => {
           }
         >
           <Route path="/" element={<MainPage />} />
-          {/* 다른 보호된 경로를 여기에 추가 */}
         </Route>
       </Routes>
     </Router>

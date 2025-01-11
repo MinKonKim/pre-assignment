@@ -4,7 +4,7 @@ export type RegisterRequestType = {
   nickname: string;
 };
 
-export type RegisterResponse = {
+export type RegisterResponseType = {
   message: string;
   success: boolean;
 };
@@ -21,4 +21,5 @@ export type LoginResponseType = {
   success: boolean;
   avatar: string;
   nickname: string;
+  message?: string;
 };
