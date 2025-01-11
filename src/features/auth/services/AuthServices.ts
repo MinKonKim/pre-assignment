@@ -1,5 +1,10 @@
 import { AuthAPI } from "../apis";
 import { LoginRequestType, RegisterRequestType } from "../types/api";
+import {
+  getUserFromStorage,
+  removeUserFromStorage,
+  setUserToStorage,
+} from "../utils";
 import { validateLoginData, validateRegisterData } from "../utils/validate";
 
 class AuthService {
@@ -9,7 +14,7 @@ class AuthService {
       return validate;
     }
 
-    return AuthAPI.register(data);
+    return await AuthAPI.register(data);
   }
 
   async login(data: LoginRequestType) {
@@ -20,18 +25,18 @@ class AuthService {
 
     const response = await AuthAPI.login(data);
     if (response.accessToken) {
-      localStorage.setItem("user", JSON.stringify(response));
+      setUserToStorage(response);
     }
     return response;
   }
 
   async checkAuth() {
-    const user = localStorage.getItem("user");
+    const user = getUserFromStorage();
     return user ? true : false;
   }
 
   logout() {
-    localStorage.removeItem("user");
+    removeUserFromStorage();
   }
 }
 
