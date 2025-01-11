@@ -23,3 +23,5 @@ export type LoginResponseType = {
   nickname: string;
   message?: string;
 };
+
+export type UserStorageType = Pick<LoginResponseType, "accessToken" | "userId">;
