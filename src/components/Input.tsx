@@ -13,10 +13,15 @@ const Input = <T extends Record<string, any>>({
   required,
 }: InputProps<T>) => {
   return (
-    <>
-      <label>{label}</label>
-      <input {...register(label, { required })} />
-    </>
+    <div className="flex itmes-center">
+      <label className="font-bold w-[80px] flex items-center justify-center">
+        {label}
+      </label>
+      <input
+        className="rounded-lg border border-spacing-2"
+        {...register(label, { required })}
+      />
+    </div>
   );
 };
 

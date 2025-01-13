@@ -10,7 +10,10 @@ const RegisterPage: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col items-center justify-center h-screen"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Input label="id" register={register} required />
       <Input label="password" register={register} required />
       <Input label="nickname" register={register} required />
