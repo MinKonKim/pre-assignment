@@ -1,14 +1,16 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../components";
-import { AuthService } from "../features/auth/services";
+import { useLogin } from "../features/auth/hooks";
 import { LoginRequestType } from "../features/auth/types";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm<LoginRequestType>();
   const navigate = useNavigate();
+  const login = useLogin();
   const onSubmit: SubmitHandler<LoginRequestType> = async (data) => {
-    await AuthService.login(data);
+    await login.mutateAsync(data);
+    navigate("/");
   };
   return (
     <div className="flex-center flex-col min-h-screen">

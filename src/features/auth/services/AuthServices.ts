@@ -13,7 +13,6 @@ class AuthService {
     if (!validate?.success) {
       return validate;
     }
-    console.log("data : ", data);
     return await AuthAPI.register(data);
   }
 
@@ -32,6 +31,7 @@ class AuthService {
 
   async checkAuth() {
     const user = getUserFromStorage();
+    console.log(user);
     return user ? true : false;
   }
 

@@ -6,7 +6,6 @@ import {
   RegisterRequestType,
   RegisterResponseType,
 } from "../types/api";
-import handleError from "../utils/authError";
 
 class AuthApi {
   private axiosInstance: AxiosInstance;
@@ -18,27 +17,13 @@ class AuthApi {
   }
 
   async register(data: RegisterRequestType): Promise<RegisterResponseType> {
-    try {
-      const response = await this.axiosInstance.post("/register", data);
-      if (response.status === 200) {
-        return response.data;
-      }
-      throw new Error("Register failed");
-    } catch (error) {
-      throw handleError(error);
-    }
+    const response = await this.axiosInstance.post("/register", data);
+    return response.data;
   }
 
   async login(data: LoginRequestType): Promise<LoginResponseType> {
-    try {
-      const response = await this.axiosInstance.post("/login", data);
-      if (response.status === 200) {
-        return response.data;
-      }
-      throw new Error("Login failed");
-    } catch (error) {
-      throw handleError(error);
-    }
+    const response = await this.axiosInstance.post("/login", data);
+    return response.data;
   }
 }
 

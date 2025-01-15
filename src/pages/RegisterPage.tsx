@@ -1,16 +1,17 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Input } from "../components";
-import Button from "../components/Button";
-import { AuthService } from "../features/auth/services";
+import { useNavigate } from "react-router-dom";
+import { Button, Input } from "../components";
+import { useRegister } from "../features/auth/hooks";
 import { RegisterRequestType } from "../features/auth/types";
 
 const RegisterPage = () => {
   const { register, handleSubmit } = useForm<RegisterRequestType>();
+  const reg = useRegister();
+  const navigate = useNavigate();
   const onSubmit: SubmitHandler<RegisterRequestType> = async (data) => {
     // TODO : 회원가입 정보 확인 하는 비즈니스 로직 넣기.
-    const res = await AuthService.register(data);
-    console.log("데이터 : ", data);
-    console.log("응답 : ", res);
+    await reg.mutateAsync(data);
+    navigate("/login");
   };
 
   return (
