@@ -5,3 +5,11 @@
 .flex-center {
   @apply flex items-center justify-center;
 }
+
+.flex-left {
+  @apply flex items-center justify-start;
+}
+
+.reactive-input {
+  @apply w-[30vw] min-w-[400px] max-w-[500px];
+}

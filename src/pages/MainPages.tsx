@@ -1,6 +1,4 @@
-import React from "react";
-
-const MainPages: React.FC = () => {
+const MainPages = () => {
   return <div>MainPages</div>;
 };
 

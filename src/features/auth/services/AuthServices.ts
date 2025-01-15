@@ -13,7 +13,7 @@ class AuthService {
     if (!validate?.success) {
       return validate;
     }
-
+    console.log("data : ", data);
     return await AuthAPI.register(data);
   }
 
