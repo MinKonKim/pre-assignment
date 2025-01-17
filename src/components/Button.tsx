@@ -1,9 +1,12 @@
+import Loader from "./Loader";
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: "primary" | "secondary"; // 버튼 스타일 유형
   size?: "small" | "medium" | "large"; // 버튼 크기
   isFull?: boolean; // 버튼 너비
   outline?: boolean; // 버튼 테두리 스타일
+  isLoading?: boolean; // 로딩 중인지 여부
 }
 
 const Button = ({
@@ -12,6 +15,7 @@ const Button = ({
   size = "medium",
   isFull,
   outline,
+  isLoading = false,
   ...props
 }: ButtonProps) => {
   // 기본 스타일
@@ -47,7 +51,7 @@ const Button = ({
       {...props}
       className={`${bgColor} ${borderColor} ${btnSize} ${fullWidthClass} ${hoverEffect} rounded-lg font-semibold`}
     >
-      {children}
+      {isLoading ? <Loader color="white" /> : children}
     </button>
   );
 };
