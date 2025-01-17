@@ -5,6 +5,8 @@ import { MainLayout } from "../layouts";
 const MainPages = () => {
   const { user } = useUserStore();
   const { isAuthenticated } = useAuthStore();
+  // TODO : 로그인 프로세스 정상 작동 테스트
+  // TODO : 메인화면 UI 설계 및 구현
   return (
     <MainLayout>
       <div className="container mx-auto p-4">

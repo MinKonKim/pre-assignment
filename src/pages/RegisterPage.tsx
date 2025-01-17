@@ -8,6 +8,8 @@ const RegisterPage = () => {
   const { register, handleSubmit } = useForm<RegisterRequestType>();
   const reg = useRegister();
   const navigate = useNavigate();
+  //TODO : 비밀번호 유효성 검사
+
   const onSubmit: SubmitHandler<RegisterRequestType> = async (data) => {
     // TODO : 회원가입 정보 확인 하는 비즈니스 로직 넣기.
     await reg.mutateAsync(data);

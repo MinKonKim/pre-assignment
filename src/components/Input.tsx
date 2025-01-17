@@ -9,7 +9,7 @@ interface InputProps<T extends Record<string, any>>
   tag?: string;
   isFull?: boolean;
 }
-
+//TODO : 값이 없다면 빨간색, 정확한 값이면 초록색 테두리
 const Input = <T extends Record<string, any>>({
   label,
   register,
