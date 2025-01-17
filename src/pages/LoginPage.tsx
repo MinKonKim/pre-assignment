@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../components";
 import { useLogin } from "../features/auth/hooks";
 import { LoginRequestType } from "../features/auth/types";
+import { AuthLayout } from "../layouts";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm<LoginRequestType>();
@@ -13,7 +14,7 @@ const LoginPage = () => {
     navigate("/");
   };
   return (
-    <div className="flex-center flex-col min-h-screen">
+    <AuthLayout>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex-center flex-col gap-2 w-50rem border p-4 rounded-lg"
@@ -40,7 +41,7 @@ const LoginPage = () => {
           회원가입하기
         </Button>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 

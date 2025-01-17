@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button, Input } from "../components";
 import { useGetUserProfile, useUpdateProfile } from "../features/user/hooks";
 import { ProfileRequestType } from "../features/user/types";
+import { MainLayout } from "../layouts";
 
 const ProfilePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,7 +49,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex-center min-h-screen">
+    <MainLayout>
       <form
         className="flex-center flex-col gap-2 w-50rem border p-4 rounded-lg"
         onSubmit={handleSubmit(onSubmit)}
@@ -90,7 +91,7 @@ const ProfilePage = () => {
           </>
         )}
       </form>
-    </div>
+    </MainLayout>
   );
 };
 

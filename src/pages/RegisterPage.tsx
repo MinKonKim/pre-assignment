@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../components";
 import { useRegister } from "../features/auth/hooks";
 import { RegisterRequestType } from "../features/auth/types";
+import { AuthLayout } from "../layouts";
 
 const RegisterPage = () => {
   const { register, handleSubmit } = useForm<RegisterRequestType>();
@@ -15,7 +16,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex-center min-h-screen">
+    <AuthLayout>
       <form
         className="flex-center flex-col gap-2 w-50rem border p-4 rounded-lg"
         onSubmit={handleSubmit(onSubmit)}
@@ -49,7 +50,7 @@ const RegisterPage = () => {
           가입하기
         </Button>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 type LoaderSize = "sm" | "md" | "lg" | "xl";
 type LoaderColor = "primary" | "white" | "gray" | "success";
 
@@ -24,12 +22,12 @@ const colorStyles: Record<LoaderColor, string> = {
   success: "border-green-500 border-t-transparent",
 };
 
-const Loader: React.FC<LoaderProps> = ({
+const Loader = ({
   size = "md",
   color = "primary",
   className = "",
   fullWidth = false,
-}) => {
+}: LoaderProps) => {
   const containerClasses = `
     flex items-center justify-center
     ${fullWidth ? "w-full" : ""}

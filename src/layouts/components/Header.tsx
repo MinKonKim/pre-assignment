@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../components";
-import useAuthStore from "../features/auth/stores/useAuthStore";
-import { useUserStore } from "../features/user/store";
+import { Button } from "../../components";
+import useAuthStore from "../../features/auth/stores/useAuthStore";
+import { useUserStore } from "../../features/user/store";
 
 const Header = () => {
   const navigate = useNavigate();
