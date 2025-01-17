@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
-import { getUserFromStorage } from "../utils";
+import { useEffect } from "react";
+import useAuthStore from "../stores/useAuthStore";
 
 const useAuth = () => {
-  const [user, setUser] = useState<string>();
-  const [loading, setLoading] = useState(true);
+  const { isAuthenticated, user, checkAuth } = useAuthStore();
 
   useEffect(() => {
-    try {
-      const userId = getUserFromStorage();
-      setUser(userId);
-    } catch (error) {
-      console.error("유저 데이터 가져오는 중 에러 발생.:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    checkAuth();
+  }, [checkAuth]);
 
-  return { user, loading };
+  return { isAuthenticated, user };
 };
 
 export default useAuth;

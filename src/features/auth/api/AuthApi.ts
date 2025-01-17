@@ -22,7 +22,12 @@ class AuthApi {
   }
 
   async login(data: LoginRequestType): Promise<LoginResponseType> {
-    const response = await this.axiosInstance.post("/login", data);
+    const { id, password, expiresIn } = data;
+    const expires = expiresIn ? `?expiresIn=${expiresIn}` : "";
+    const response = await this.axiosInstance.post(`/login${expires}`, {
+      id,
+      password,
+    });
     return response.data;
   }
 }

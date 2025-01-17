@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { AuthAPI } from "../apis";
+import useAuthStore from "../stores/useAuthStore";
 import { LoginRequestType, RegisterRequestType } from "../types/api";
-import { removeUserFromStorage } from "../utils";
 import { validateLoginData, validateRegisterData } from "../utils/validate";
 
 class AuthService {
@@ -21,18 +21,17 @@ class AuthService {
 
     const response = await AuthAPI.login(data);
     if (response.accessToken) {
-      Cookies.set("accessToken", response.accessToken, { expires: 7 }); // 7일간 유지
+      Cookies.set("accessToken", response.accessToken, {
+        expires: 7,
+      });
+      useAuthStore.getState().setUser({ ...response });
     }
     return response;
   }
 
-  checkAuth() {
-    const user = Cookies.get("accessToken");
-    return user ? true : false;
-  }
-
   logout() {
-    removeUserFromStorage();
+    Cookies.remove("accessToken");
+    useAuthStore.getState().clearUser();
   }
 }
 

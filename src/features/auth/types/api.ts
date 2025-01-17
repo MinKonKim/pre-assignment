@@ -19,7 +19,7 @@ export type LoginResponseType = {
   accessToken: string;
   userId: string;
   success: boolean;
-  avatar: string;
+  avatar: File | null;
   nickname: string;
   message?: string;
 };

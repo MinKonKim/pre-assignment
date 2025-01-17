@@ -1,20 +1,20 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { LandingPage, LoginPage, RegisterPage } from "../pages";
+import { routes } from "./route";
+import RouteGuard from "./RouteGaurd";
 
 const AppRoutes = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/landing" element={<LandingPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        {/* <Route
-          element={
-            <PrivateRoute requiredRole="authorized" userRole={userRole} />
-          }
-        >
-          <Route path="/" element={<MainPage />} />
-        </Route> */}
+        {routes.map(({ path, element: Component, protected: isProtected }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <RouteGuard component={Component} protected={isProtected} />
+            }
+          />
+        ))}
       </Routes>
     </Router>
   );

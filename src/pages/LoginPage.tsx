@@ -20,6 +20,7 @@ const LoginPage = () => {
       >
         <Input label="id" register={register} tag="아이디" isFull required />
         <Input
+          type="password"
           label="password"
           register={register}
           tag="비밀번호"

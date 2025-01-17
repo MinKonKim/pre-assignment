@@ -1,19 +1,27 @@
+import Cookies from "js-cookie";
 import { create } from "zustand";
-
+import { LoginResponseType } from "../types";
 interface AuthState {
-  user: string | null;
-  role: "admin" | "user" | null; // Role 추가
-  setUser: (userId: string) => void;
-  clearUser: () => void;
+  user: LoginResponseType | null;
   isAuthenticated: boolean;
+  setUser: (user: LoginResponseType) => void;
+  clearUser: () => void;
+  checkAuth: () => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
   user: null,
-  role: null,
-  setUser: (userId) => set({ user: userId, isAuthenticated: true }),
-  clearUser: () => set({ user: null, isAuthenticated: false }),
   isAuthenticated: false,
+  setUser: (user) => set({ user: user, isAuthenticated: true }),
+  clearUser: () => set({ user: null, isAuthenticated: false }),
+  checkAuth: () => {
+    const token = Cookies.get("accessToken");
+    if (token) {
+      set({ isAuthenticated: true });
+    } else {
+      set({ isAuthenticated: false });
+    }
+  },
 }));
 
 export default useAuthStore;
