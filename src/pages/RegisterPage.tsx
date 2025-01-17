@@ -30,14 +30,15 @@ const RegisterPage = () => {
           required
         />
         <Input
-          label="password"
           type="password"
+          label="password"
           register={register}
           tag="비밀번호 확인"
           isFull
           required
         />
         <Input
+          type="text"
           label="nickname"
           register={register}
           tag="닉네임"

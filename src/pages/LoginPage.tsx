@@ -27,7 +27,7 @@ const LoginPage = () => {
           isFull
           required
         />
-        <Button type="submit" size="large" isFull>
+        <Button type="submit" size="large" isLoading={login.isPending} isFull>
           로그인하기
         </Button>
 

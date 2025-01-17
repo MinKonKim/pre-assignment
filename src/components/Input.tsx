@@ -5,7 +5,7 @@ interface InputProps<T extends Record<string, any>>
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label: Path<T>;
   register: UseFormRegister<T>;
-  required: boolean;
+  required?: boolean;
   tag?: string;
   isFull?: boolean;
 }
