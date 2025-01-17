@@ -1,13 +1,10 @@
-import { UserStorageType } from "../types";
-
-export const getUserFromStorage = () => {
+export const getUserFromStorage = (): string => {
   const user = localStorage.getItem("user");
   return user ? JSON.parse(user) : null;
 };
 
-export const setUserToStorage = (user: UserStorageType) => {
-  const { accessToken, userId } = user;
-  localStorage.setItem("user", JSON.stringify({ accessToken, userId }));
+export const setUserToStorage = (userId: string) => {
+  localStorage.setItem("user", JSON.stringify({ userId }));
 };
 
 export const removeUserFromStorage = () => {

@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
-import { AuthService } from "../services";
+import { getUserFromStorage } from "../utils";
 
 const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<string>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const authStatus = await AuthService.checkAuth();
-      setIsAuthenticated(authStatus);
-    };
-
-    checkAuth();
+    try {
+      const userId = getUserFromStorage();
+      setUser(userId);
+    } catch (error) {
+      console.error("유저 데이터 가져오는 중 에러 발생.:", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return isAuthenticated;
+  return { user, loading };
 };
 
 export default useAuth;

@@ -1,8 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { LandingPage, LoginPage, MainPage, RegisterPage } from "../pages";
-import PrivateRoute from "./PrivateRoute";
-
-const userRole = "admin"; // 실제 사용자 역할 로직으로 대체
+import { LandingPage, LoginPage, RegisterPage } from "../pages";
 
 const AppRoutes = () => {
   return (
@@ -11,13 +8,13 @@ const AppRoutes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route
+        {/* <Route
           element={
             <PrivateRoute requiredRole="authorized" userRole={userRole} />
           }
         >
           <Route path="/" element={<MainPage />} />
-        </Route>
+        </Route> */}
       </Routes>
     </Router>
   );

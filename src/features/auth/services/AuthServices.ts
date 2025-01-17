@@ -1,10 +1,7 @@
+import Cookies from "js-cookie";
 import { AuthAPI } from "../apis";
 import { LoginRequestType, RegisterRequestType } from "../types/api";
-import {
-  getUserFromStorage,
-  removeUserFromStorage,
-  setUserToStorage,
-} from "../utils";
+import { removeUserFromStorage } from "../utils";
 import { validateLoginData, validateRegisterData } from "../utils/validate";
 
 class AuthService {
@@ -24,14 +21,13 @@ class AuthService {
 
     const response = await AuthAPI.login(data);
     if (response.accessToken) {
-      setUserToStorage(response);
+      Cookies.set("accessToken", response.accessToken, { expires: 7 }); // 7일간 유지
     }
     return response;
   }
 
-  async checkAuth() {
-    const user = getUserFromStorage();
-    console.log(user);
+  checkAuth() {
+    const user = Cookies.get("accessToken");
     return user ? true : false;
   }
 
