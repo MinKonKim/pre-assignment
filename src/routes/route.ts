@@ -1,4 +1,4 @@
-import { LoginPage, MainPage, ProfilePage, RegisterPage } from "../pages";
+import { MainPage, ProfilePage } from "../pages";
 
 type RouteConfig = {
   path: string;
@@ -7,16 +7,6 @@ type RouteConfig = {
 };
 
 export const routes: RouteConfig[] = [
-  {
-    path: "/login",
-    element: LoginPage,
-    protected: false,
-  },
-  {
-    path: "/register",
-    element: RegisterPage,
-    protected: false,
-  },
   {
     path: "/profile/:id",
     element: ProfilePage,

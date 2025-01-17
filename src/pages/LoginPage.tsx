@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../components";
 import { useLogin } from "../features/auth/hooks";
 import { LoginRequestType } from "../features/auth/types";
-import { AuthLayout } from "../layouts";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm<LoginRequestType>();
@@ -14,34 +13,27 @@ const LoginPage = () => {
     navigate("/");
   };
   return (
-    <AuthLayout>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex-center flex-col gap-2 w-50rem border p-4 rounded-lg"
-      >
-        <Input label="id" register={register} tag="아이디" isFull required />
-        <Input
-          type="password"
-          label="password"
-          register={register}
-          tag="비밀번호"
-          isFull
-          required
-        />
-        <Button type="submit" size="large" isLoading={login.isPending} isFull>
-          로그인하기
-        </Button>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex-center flex-col gap-2 w-50rem border p-4 rounded-lg m-2"
+    >
+      <Input label="id" register={register} tag="아이디" isFull required />
+      <Input
+        type="password"
+        label="password"
+        register={register}
+        tag="비밀번호"
+        isFull
+        required
+      />
+      <Button type="submit" size="large" isLoading={login.isPending} isFull>
+        로그인하기
+      </Button>
 
-        <Button
-          onClick={() => navigate("/register")}
-          size="large"
-          isFull
-          outline
-        >
-          회원가입하기
-        </Button>
-      </form>
-    </AuthLayout>
+      <Button onClick={() => navigate("/register")} size="large" isFull outline>
+        회원가입하기
+      </Button>
+    </form>
   );
 };
 

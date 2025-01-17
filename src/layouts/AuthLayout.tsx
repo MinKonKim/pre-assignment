@@ -1,13 +1,9 @@
-import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Outlet } from "react-router-dom";
 import { CarouselItem } from "./components";
 
-interface AuthLayoutProps {
-  children?: React.ReactNode;
-}
-
-const AuthLayout = ({ children }: AuthLayoutProps) => {
+const AuthLayout = () => {
   return (
     <div className="flex flex-col md:flex-row min-h-screen overflow-hidden">
       <div className="hidden md:flex flex-col justify-center items-center w-full md:w-1/2 p-8 bg-gray-400">
@@ -32,8 +28,8 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           />
         </Carousel>
       </div>
-      <div className="flex flex-col justify-center items-center w-full md:w-1/2 p-8">
-        {children}
+      <div className="flex flex-col justify-center items-center w-full md:w-1/2 p-8 shadow-md rounded-md">
+        <Outlet />
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../components";
 import { useRegister } from "../features/auth/hooks";
 import { RegisterRequestType } from "../features/auth/types";
-import { AuthLayout } from "../layouts";
 
 const RegisterPage = () => {
   const { register, handleSubmit } = useForm<RegisterRequestType>();
@@ -16,41 +15,39 @@ const RegisterPage = () => {
   };
 
   return (
-    <AuthLayout>
-      <form
-        className="flex-center flex-col gap-2 w-50rem border p-4 rounded-lg"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Input label="id" register={register} tag="아이디" isFull required />
-        <Input
-          type="password"
-          label="password"
-          register={register}
-          tag="비밀번호"
-          isFull
-          required
-        />
-        <Input
-          type="password"
-          label="password"
-          register={register}
-          tag="비밀번호 확인"
-          isFull
-          required
-        />
-        <Input
-          type="text"
-          label="nickname"
-          register={register}
-          tag="닉네임"
-          isFull
-          required
-        />
-        <Button type="submit" variant="primary" size="large" isFull>
-          가입하기
-        </Button>
-      </form>
-    </AuthLayout>
+    <form
+      className="flex-center flex-col gap-2 w-50rem border p-4 rounded-lg m-2"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <Input label="id" register={register} tag="아이디" isFull required />
+      <Input
+        type="password"
+        label="password"
+        register={register}
+        tag="비밀번호"
+        isFull
+        required
+      />
+      <Input
+        type="password"
+        label="password"
+        register={register}
+        tag="비밀번호 확인"
+        isFull
+        required
+      />
+      <Input
+        type="text"
+        label="nickname"
+        register={register}
+        tag="닉네임"
+        isFull
+        required
+      />
+      <Button type="submit" variant="primary" size="large" isFull>
+        가입하기
+      </Button>
+    </form>
   );
 };
 
