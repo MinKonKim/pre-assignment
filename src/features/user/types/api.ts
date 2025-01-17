@@ -1,12 +1,12 @@
 export type UserInfoType = {
   id: string;
-  nickanme: string;
+  nickname: string;
   avatar: File | null;
   success: boolean;
 };
 
 export type ProfileRequestType = {
-  avatar: File | null;
+  avatar: File;
   nickname: string;
 };
 
