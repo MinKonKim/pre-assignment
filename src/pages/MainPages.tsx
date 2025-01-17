@@ -1,5 +1,13 @@
+import { Footer, Header } from "../layouts";
+
 const MainPages = () => {
-  return <div>MainPages</div>;
+  return (
+    <div>
+      <Header />
+      MainPages
+      <Footer />
+    </div>
+  );
 };
 
 export default MainPages;
