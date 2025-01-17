@@ -1,19 +1,13 @@
 import Cookies from "js-cookie";
 import { create } from "zustand";
-import { LoginResponseType } from "../types";
 interface AuthState {
-  user: LoginResponseType | null;
   isAuthenticated: boolean;
-  setUser: (user: LoginResponseType) => void;
-  clearUser: () => void;
   checkAuth: () => void;
+  clearCookie: () => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
-  user: null,
   isAuthenticated: false,
-  setUser: (user) => set({ user: user, isAuthenticated: true }),
-  clearUser: () => set({ user: null, isAuthenticated: false }),
   checkAuth: () => {
     const token = Cookies.get("accessToken");
     if (token) {
@@ -21,6 +15,10 @@ const useAuthStore = create<AuthState>((set) => ({
     } else {
       set({ isAuthenticated: false });
     }
+  },
+  clearCookie: () => {
+    Cookies.remove("accessToken");
+    set({ isAuthenticated: false });
   },
 }));
 

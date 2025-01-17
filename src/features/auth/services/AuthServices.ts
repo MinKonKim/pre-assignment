@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
-import { AuthAPI } from "../apis";
-import useAuthStore from "../stores/useAuthStore";
+import { AuthAPI } from "../api";
 import { LoginRequestType, RegisterRequestType } from "../types/api";
 import { validateLoginData, validateRegisterData } from "../utils/validate";
 
@@ -24,14 +23,14 @@ class AuthService {
       Cookies.set("accessToken", response.accessToken, {
         expires: 7,
       });
-      useAuthStore.getState().setUser({ ...response });
+      //useAuthStore.getState().setUser({ ...response });
     }
     return response;
   }
 
   logout() {
     Cookies.remove("accessToken");
-    useAuthStore.getState().clearUser();
+    //useAuthStore.getState().clearUser();
   }
 }
 
