@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Path, UseFormRegister } from "react-hook-form";
+
+import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 
 interface InputProps<T extends Record<string, any>>
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -8,27 +9,35 @@ interface InputProps<T extends Record<string, any>>
   required?: boolean;
   tag?: string;
   isFull?: boolean;
+  errors?: FieldErrors<T>;
 }
-//TODO : 값이 없다면 빨간색, 정확한 값이면 초록색 테두리
+
 const Input = <T extends Record<string, any>>({
   label,
   register,
   required,
   tag,
   isFull,
+  errors,
   ...props
 }: InputProps<T>) => {
   const fullWidthClass = isFull ? "w-full" : "";
+  const errorClass =
+    errors && errors[label] ? "border-red-500" : "border-green-500";
   return (
     <div className={`flex-center flex-col reactive-input ${fullWidthClass}`}>
-      <label className={`font-bold w-[10rem] flex-left ${fullWidthClass} `}>
+      <label htmlFor={label} className="font-bold w-[10rem] flex-left">
         {tag}
       </label>
       <input
-        className={`rounded-lg border p-2 ${fullWidthClass} `}
+        id={label}
         {...register(label, { required })}
+        className={`rounded-lg border p-2 ${fullWidthClass} ${errorClass}`}
         {...props}
       />
+      {errors && errors[label] && (
+        <span className="text-red-500">{errors[label].message as string}</span>
+      )}
     </div>
   );
 };
