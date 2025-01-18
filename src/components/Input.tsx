@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 
 interface InputProps<T extends Record<string, any>>
@@ -10,6 +11,7 @@ interface InputProps<T extends Record<string, any>>
   isFull?: boolean;
   errors?: FieldErrors<T>;
 }
+
 const Input = <T extends Record<string, any>>({
   label,
   register,
@@ -24,18 +26,17 @@ const Input = <T extends Record<string, any>>({
     errors && errors[label] ? "border-red-500" : "border-green-500";
   return (
     <div className={`flex-center flex-col reactive-input ${fullWidthClass}`}>
-      <label className={`font-bold w-[10rem] flex-left ${fullWidthClass} `}>
+      <label htmlFor={label} className="font-bold w-[10rem] flex-left">
         {tag}
       </label>
       <input
-        className={`rounded-lg border p-2 ${fullWidthClass} ${errorClass} `}
+        id={label}
         {...register(label, { required })}
+        className={`rounded-lg border p-2 ${fullWidthClass} ${errorClass}`}
         {...props}
       />
       {errors && errors[label] && (
-        <span className="text-red-500 text-sm mt-1">
-          {errors[label]?.message as string}
-        </span>
+        <span className="text-red-500">{errors[label].message as string}</span>
       )}
     </div>
   );
