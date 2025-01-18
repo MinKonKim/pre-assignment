@@ -3,16 +3,36 @@ import { useNavigate } from "react-router-dom";
 import { Button, Input } from "../components";
 import { useRegister } from "../features/auth/hooks";
 import { RegisterRequestType } from "../features/auth/types";
+import { validateForm } from "../utils";
+
+interface RegisterFormType extends RegisterRequestType {
+  confirmPassword: string;
+}
 
 const RegisterPage = () => {
-  const { register, handleSubmit } = useForm<RegisterRequestType>();
-  const reg = useRegister();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<RegisterFormType>();
+  const regist = useRegister();
   const navigate = useNavigate();
-  //TODO : 비밀번호 유효성 검사
 
-  const onSubmit: SubmitHandler<RegisterRequestType> = async (data) => {
-    // TODO : 회원가입 정보 확인 하는 비즈니스 로직 넣기.
-    await reg.mutateAsync(data);
+  const onSubmit: SubmitHandler<RegisterFormType> = async (data) => {
+    const { isValid, errors: validationErrors } = validateForm(data);
+
+    if (!isValid) {
+      Object.entries(validationErrors).forEach(([field, message]) => {
+        setError(field as keyof RegisterFormType, {
+          type: "manual",
+          message,
+        });
+      });
+      return;
+    }
+    // 회원 가입.
+    await regist.mutateAsync(data);
     navigate("/login");
   };
 
@@ -27,14 +47,16 @@ const RegisterPage = () => {
         label="password"
         register={register}
         tag="비밀번호"
+        errors={errors}
         isFull
         required
       />
       <Input
         type="password"
-        label="password"
+        label="confirmPassword"
         register={register}
         tag="비밀번호 확인"
+        errors={errors}
         isFull
         required
       />
