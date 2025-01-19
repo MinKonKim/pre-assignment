@@ -1,50 +1,49 @@
-# React + TypeScript + Vite
+# 프론트엔드 개발 온보딩 과제
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📋 개요
+이 프로젝트는 Vite와 React를 기반으로 TypeScript로 작성된 웹 애플리케이션입니다.  
+재사용 가능한 UI 컴포넌트와 모듈화된 기능 구조를 갖추고 있으며, 테스트 코드를 포함하고 있습니다.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🛠 주요 기술 스택
+- **Frontend** : React, TypeScript
+- **Build Tool** : Vite
+- **Styling** : TailwindCSS
+- **State Management** : Zustand
+- **Data Fetching & Caching** : TanStack Query
+- **Error Monitoring** : Sentry
+- **Testing** : Jest
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🧪 실행 및 개발
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 1. 설치
+```bash
+npm install
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. 개발 서버 실행
+```bash
+npm run dev
 ```
+3. 빌드
+```bash
+npm run build
+```
+4. 테스트 실행
+```bash
+npm run test
+```
+---
+🚀 주요 기능
+인증 모듈
+
+로그인/회원가입 API 연동
+사용자 상태 관리 (useAuth 훅)
+UI 컴포넌트
+
+재사용 가능한 버튼, 입력창, 로더 컴포넌트
+테스트
+
+주요 컴포넌트 및 기능에 대한 유닛 테스트 포함
