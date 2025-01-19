@@ -29,7 +29,6 @@ const LoginPage = () => {
       <Button type="submit" size="large" isLoading={login.isPending} isFull>
         로그인하기
       </Button>
-
       <Button onClick={() => navigate("/register")} size="large" isFull outline>
         회원가입하기
       </Button>
