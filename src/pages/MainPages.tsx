@@ -12,8 +12,8 @@ const MainPages = () => {
       <div className="container mx-auto p-4">
         {isAuthenticated && (
           <div className="mb-4">
-            <h2 className="text-xl font-semibold">프로필 요약</h2>
-            <p>닉네임: {user?.nickname}</p>
+            <h2 className="text-xl font-semibold">환영합니다!</h2>
+            <p>{user?.nickname}님</p>
             {user?.avatar && (
               <img
                 src={URL.createObjectURL(user.avatar)}

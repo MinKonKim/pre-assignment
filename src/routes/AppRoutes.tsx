@@ -23,10 +23,11 @@ const AppRoutes = () => {
             element={<RouteGuard component={RegisterPage} protected={false} />}
           />
         </Route>
-        <Route
+        <Route path="/main" element={<MainPage />} />
+        {/* <Route
           path="/main"
           element={<RouteGuard component={MainPage} protected={true} />}
-        />
+        /> */}
         <Route
           path="/profile"
           element={<RouteGuard component={ProfilePage} protected={true} />}

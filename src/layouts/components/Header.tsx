@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../components";
+import { Button, ProfileImage } from "../../components";
 import useAuthStore from "../../features/auth/stores/useAuthStore";
 import { useUserStore } from "../../features/user/store";
 
@@ -17,15 +17,8 @@ const Header = () => {
   return (
     <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
       <div className="flex items-center">
-        <img
-          src={
-            user?.avatar
-              ? URL.createObjectURL(user.avatar)
-              : "/default-avatar.png"
-          }
-          alt="User Avatar"
-          className="w-10 h-10 rounded-full"
-        />
+        {user && <ProfileImage user={user} size="small" />}
+
         <span className="ml-2">{user?.nickname || "Guest"}</span>
       </div>
       <nav>
