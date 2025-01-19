@@ -1,6 +1,6 @@
 # 프론트엔드 개발 온보딩 과제
 ## 배포 
-[🔗 배포 링크]([pre-assignment-liard.vercel.app](https://pre-assignment-liard.vercel.app)
+[🔗 배포 링크]([pre-assignment-liard.vercel.app](https://pre-assignment-liard.vercel.app))
 ## 📋 개요
 이 프로젝트는 Vite와 React를 기반으로 TypeScript로 작성된 웹 애플리케이션입니다.  
 재사용 가능한 UI 컴포넌트와 모듈화된 기능 구조를 갖추고 있으며, 테스트 코드를 포함하고 있습니다.
