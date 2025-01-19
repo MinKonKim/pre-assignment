@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
+    <header className="flex justify-between items-center p-4 bg-prime-800 bg-opacity-80 text-white ">
       <div className="flex items-center">
         {user && <ProfileImage user={user} size="small" />}
 
